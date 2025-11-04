@@ -1,0 +1,17 @@
+# Placeholder Audio Files
+
+This folder should contain your MP3 files. Currently, it has placeholder files that will be replaced with your actual music.
+
+## Expected Files:
+- electronic-dreams.mp3
+- midnight-vibes.mp3
+- urban-pulse.mp3
+- chill-waves.mp3
+
+## How to Add Your Music:
+1. Place your MP3 files in this folder
+2. Name them exactly as listed above, OR
+3. Update the playlist in script.js with your custom filenames
+
+## Note:
+If files are missing, the player will show a helpful message instead of trying to load non-existent URLs.

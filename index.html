@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrstWorks - Music & Audio</title>
+    <meta name="description" content="BrstWorks - Discover amazing music and audio content">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fonts loaded asynchronously for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <!-- Reduced Font Awesome to essential icons only -->
+    <style>
+        /* Essential icons inline for faster loading */
+        .fas::before, .fab::before { font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands'; font-weight: 900; }
+        .fa-play::before { content: "\f04b"; }
+        .fa-pause::before { content: "\f04c"; }
+        .fa-step-backward::before { content: "\f048"; }
+        .fa-step-forward::before { content: "\f051"; }
+        .fa-envelope::before { content: "\f0e0"; }
+        .fab { font-weight: 400; }
+        .fa-spotify::before { content: "\f1bc"; }
+        .fa-soundcloud::before { content: "\f1be"; }
+        .fa-youtube::before { content: "\f167"; }
+        .fa-instagram::before { content: "\f16d"; }
+        .fa-twitter::before { content: "\f099"; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1 class="brand-title">BrstWorks</h1>
+                    <span class="brand-subtitle">Music & Audio</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#music" class="nav-link">Music</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to BrstWorks</h1>
+            <p class="hero-subtitle">Where Music Meets Innovation</p>
+            <p class="hero-description">Discover our latest tracks, beats, and audio productions</p>
+            <button class="cta-button" onclick="scrollToSection('music')">
+                <i class="fas fa-play"></i> Explore Music
+            </button>
+        </div>
+        <div class="hero-visual">
+            <div class="sound-wave">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player Section -->
+    <section id="music" class="music-section">
+        <div class="container">
+            <h2 class="section-title">Featured Tracks</h2>
+            
+            <!-- Music Player -->
+            <div class="music-player">
+                <div class="player-display">
+                    <div class="track-info">
+                        <div class="track-cover-container">
+                            <img src="" alt="Track Cover" class="track-cover" id="trackCover" style="display: none;">
+                            <div class="cover-placeholder" style="
+                                width: 80px;
+                                height: 80px;
+                                border-radius: 10px;
+                                background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 1.5rem;
+                            ">♪</div>
+                        </div>
+                        <div class="track-details">
+                            <h3 class="track-title" id="trackTitle">Select a track to play</h3>
+                            <p class="track-artist" id="trackArtist">BrstWorks</p>
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <button class="control-btn" id="prevBtn">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button class="control-btn play-btn" id="playBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="control-btn" id="nextBtn">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <span class="time" id="currentTime">0:00</span>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span class="time" id="duration">0:00</span>
+                </div>
+                <audio id="audio" preload="none"></audio>
+            </div>
+
+            <!-- Playlist -->
+            <div class="playlist">
+                <h3 class="playlist-title">Playlist</h3>
+                <div class="track-list" id="trackList">
+                    <div class="track-item" data-src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
+                        <div class="track-number">01</div>
+                        <div class="track-info-small">
+                            <div class="track-name">Electronic Dreams</div>
+                            <div class="track-duration">3:45</div>
+                        </div>
+                        <button class="play-track-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="track-item" data-src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
+                        <div class="track-number">02</div>
+                        <div class="track-info-small">
+                            <div class="track-name">Midnight Vibes</div>
+                            <div class="track-duration">4:12</div>
+                        </div>
+                        <button class="play-track-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="track-item" data-src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
+                        <div class="track-number">03</div>
+                        <div class="track-info-small">
+                            <div class="track-name">Urban Pulse</div>
+                            <div class="track-duration">2:58</div>
+                        </div>
+                        <button class="play-track-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="track-item" data-src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
+                        <div class="track-number">04</div>
+                        <div class="track-info-small">
+                            <div class="track-name">Chill Waves</div>
+                            <div class="track-duration">5:23</div>
+                        </div>
+                        <button class="play-track-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About BrstWorks</h2>
+                    <p class="about-description">
+                        BrstWorks is a creative music and audio production studio dedicated to crafting 
+                        unique soundscapes and innovative audio experiences. We blend traditional 
+                        musicality with cutting-edge production techniques to create memorable tracks 
+                        that resonate with listeners worldwide.
+                    </p>
+                    <p class="about-description">
+                        From electronic beats to ambient soundscapes, our diverse catalog showcases 
+                        the versatility and creativity that defines the BrstWorks sound.
+                    </p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Tracks Released</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Listeners</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Years Active</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="sound-visualization">
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                        <div class="viz-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Collaborate</h3>
+                    <p>Interested in working together or have questions about our music? We'd love to hear from you!</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>BrstWorks@email.cz</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="simple-contact">
+                        <h4>Get in Touch</h4>
+                        <p>Ready to collaborate or have questions? Send us an email!</p>
+                        <a href="mailto:BrstWorks@email.cz?subject=Contact from BrstWorks Website&body=Hi there! I'd like to get in touch about..." class="contact-btn email-btn">
+                            <i class="fas fa-envelope"></i> Send Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>BrstWorks</h3>
+                    <p>Creating music that moves you</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#music">Music</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-soundcloud"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BrstWorks. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
