@@ -3,31 +3,31 @@ let audio, playBtn, prevBtn, nextBtn, progress, progressBar;
 let currentTimeEl, durationEl, trackTitle, trackArtist, trackCover, trackList;
 let navToggle, navMenu, contactForm;
 
-// Playlist data with local asset paths
+// Playlist data with local asset paths and per-track artist + cover
 const playlist = [
     {
-        title: 'Electronic Dreams',
-        artist: 'BrstWorks',
-        duration: '3:45',
-        cover: 'assets/images/electronic-dreams.jpg',
-        src: 'assets/audio/electronic-dreams.mp3'
+        title: 'BEEN THERE, DONE THAT',
+        artist: 'D0ndrripp (prod. Brst)',
+        duration: '1:46',
+        cover: 'assets/images/kominik.png',
+        src: 'assets/audio/danrapp.mp3'
     },
     {
-        title: 'Midnight Vibes',
+        title: 'PLACEHOLDER',
         artist: 'BrstWorks',
         duration: '4:12',
         cover: 'assets/images/midnight-vibes.jpg',
         src: 'assets/audio/midnight-vibes.mp3'
     },
     {
-        title: 'Urban Pulse',
+        title: 'PLACEHOLDER',
         artist: 'BrstWorks',
         duration: '2:58',
         cover: 'assets/images/urban-pulse.jpg',
         src: 'assets/audio/urban-pulse.mp3'
     },
     {
-        title: 'Chill Waves',
+        title: 'PLACEHOLDER',
         artist: 'BrstWorks',
         duration: '5:23',
         cover: 'assets/images/chill-waves.jpg',
@@ -62,27 +62,92 @@ function initDOMElements() {
     }
 }
 
+// Build playlist DOM from the playlist array so each item shows title, artist and cover thumbnail
+function buildTrackListFromPlaylist() {
+    initDOMElements();
+    if (!trackList) return;
+
+    // Clear any static items in index.html
+    trackList.innerHTML = '';
+
+    playlist.forEach((t, idx) => {
+        const item = document.createElement('div');
+        item.className = 'track-item';
+        item.setAttribute('data-src', t.src || '');
+
+        // Thumbnail (fallback handled by onerror)
+        const thumbHtml = `
+            <div class="track-thumb-container" style="width:48px;height:48px;border-radius:6px;overflow:hidden;margin-right:10px;">
+                <img src="${t.cover || ''}" alt="${t.title} cover" class="track-thumb" style="width:100%;height:100%;object-fit:cover;display:block;">
+            </div>
+        `;
+
+        item.innerHTML = `
+            <div style="display:flex;align-items:center;">
+                ${thumbHtml}
+                <div style="flex:1;min-width:0;">
+                    <div class="track-name" style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title}</div>
+                    <div class="track-artist-small" style="font-size:0.85rem;color:var(--muted,#666);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.artist}</div>
+                </div>
+                <div class="track-duration" style="margin-left:12px;color:var(--muted,#666);">${t.duration || ''}</div>
+                <button class="play-track-btn" style="margin-left:12px;border:none;background:transparent;cursor:pointer;">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+        `;
+
+        // Attach click handlers
+        const playBtnLocal = item.querySelector('.play-track-btn');
+        item.addEventListener('click', () => {
+            currentTrackIndex = idx;
+            loadTrack(idx);
+            playTrack();
+        });
+        if (playBtnLocal) {
+            playBtnLocal.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentTrackIndex = idx;
+                loadTrack(idx);
+                playTrack();
+            });
+        }
+
+        // If cover image fails, hide it (player will show placeholder)
+        const img = item.querySelector('.track-thumb');
+        if (img) {
+            img.addEventListener('error', () => {
+                img.style.display = 'none';
+            });
+        }
+
+        trackList.appendChild(item);
+    });
+
+    // Ensure active styling is correct after build
+    updateActiveTrack(currentTrackIndex);
+}
+
 // Initialize the music player
 function initPlayer() {
     initDOMElements();
-    
+
+    // Rebuild the playlist DOM so each track shows artist + cover
+    buildTrackListFromPlaylist();
+
     // Load the first track info (without audio)
     updateTrackDisplay(currentTrackIndex);
-    
+
     // Set up event listeners
     setupEventListeners();
-    
-    // Update track list with event handlers
-    updateTrackList();
 }
 
 // Update track display without loading audio immediately
 function updateTrackDisplay(index) {
     const track = playlist[index];
-    
+
     if (trackTitle) trackTitle.textContent = track.title;
     if (trackArtist) trackArtist.textContent = track.artist;
-    
+
     // Handle cover image with local fallback
     if (trackCover) {
         // Reset previous state
@@ -91,12 +156,12 @@ function updateTrackDisplay(index) {
         if (existingPlaceholder) {
             existingPlaceholder.style.display = 'none';
         }
-        
+
         trackCover.src = track.cover;
         trackCover.onerror = function() {
             // Hide the broken image
             this.style.display = 'none';
-            
+
             // Show or create CSS-based placeholder
             let placeholder = this.parentElement.querySelector('.cover-placeholder');
             if (!placeholder) {
@@ -104,10 +169,10 @@ function updateTrackDisplay(index) {
                 placeholder.className = 'cover-placeholder';
                 this.parentElement.appendChild(placeholder);
             }
-            
+
             const colors = ['#4ecdc4', '#ff6b6b', '#45b7d1', '#96ceb4'];
-            const initials = track.title.split(' ').map(word => word[0]).join('').substring(0, 2);
-            
+            const initials = (track.title || '').split(' ').map(word => word[0] || '').join('').substring(0, 2);
+
             placeholder.style.cssText = `
                 position: absolute;
                 top: 0;
@@ -124,10 +189,10 @@ function updateTrackDisplay(index) {
                 font-size: 1.2rem;
                 z-index: 2;
             `;
-            placeholder.textContent = initials;
+            placeholder.textContent = initials || 'ô';
             placeholder.style.display = 'flex';
         };
-        
+
         trackCover.onload = function() {
             // Show real image and hide placeholder
             this.style.display = 'block';
@@ -137,7 +202,7 @@ function updateTrackDisplay(index) {
             }
         };
     }
-    
+
     // Update active track in playlist
     updateActiveTrack(index);
 }
@@ -145,13 +210,13 @@ function updateTrackDisplay(index) {
 // Load audio only when needed (when user tries to play)
 function loadTrack(index) {
     const track = playlist[index];
-    
+
     if (audio) {
         // Don't load audio URL immediately, wait for play attempt
         audio.removeAttribute('src');
         audio.load(); // Reset audio element
     }
-    
+
     updateTrackDisplay(index);
 }
 
@@ -171,31 +236,12 @@ function updateActiveTrack(index) {
     trackItems.forEach((item, i) => {
         if (i === index) {
             item.classList.add('active');
+            const btn = item.querySelector('.play-track-btn i');
+            if (btn) btn.className = 'fas fa-pause';
         } else {
             item.classList.remove('active');
-        }
-    });
-}
-
-// Update track list with click handlers
-function updateTrackList() {
-    const trackItems = document.querySelectorAll('.track-item');
-    trackItems.forEach((item, index) => {
-        const playButton = item.querySelector('.play-track-btn');
-        
-        item.addEventListener('click', () => {
-            currentTrackIndex = index;
-            loadTrack(index);
-            playTrack();
-        });
-        
-        if (playButton) {
-            playButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentTrackIndex = index;
-                loadTrack(index);
-                playTrack();
-            });
+            const btn = item.querySelector('.play-track-btn i');
+            if (btn) btn.className = 'fas fa-play';
         }
     });
 }
@@ -211,9 +257,9 @@ function togglePlay() {
 
 function playTrack() {
     initDOMElements();
-    
+
     const track = playlist[currentTrackIndex];
-    
+
     // First, try to load the actual audio file
     if (!audio.src || audio.src === window.location.href || audio.src === SILENT_AUDIO) {
         // Check if the audio file exists
@@ -246,12 +292,12 @@ function playTrack() {
 
 function attemptPlay() {
     const playPromise = audio.play();
-    
+
     if (playPromise !== undefined) {
         playPromise.then(() => {
             isPlaying = true;
             if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            
+
             // Add playing animation to current track
             const activeTrackItem = document.querySelector('.track-item.active');
             if (activeTrackItem) {
@@ -272,7 +318,7 @@ function pauseTrack() {
         audio.pause();
         isPlaying = false;
         if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        
+
         // Remove playing animation from current track
         const activeTrackItem = document.querySelector('.track-item.active');
         if (activeTrackItem) {
@@ -299,13 +345,13 @@ function nextTrack() {
 // Update progress bar
 function updateProgress() {
     if (!audio) return;
-    
+
     const { duration, currentTime } = audio;
-    
+
     if (duration && progress && currentTimeEl && durationEl) {
         const progressPercent = (currentTime / duration) * 100;
         progress.style.width = progressPercent + '%';
-        
+
         // Update time displays
         currentTimeEl.textContent = formatTime(currentTime);
         durationEl.textContent = formatTime(duration);
@@ -315,11 +361,11 @@ function updateProgress() {
 // Set progress
 function setProgress(e) {
     if (!audio || !progressBar) return;
-    
+
     const width = progressBar.clientWidth;
     const clickX = e.offsetX;
     const duration = audio.duration;
-    
+
     if (duration) {
         audio.currentTime = (clickX / width) * duration;
     }
@@ -328,7 +374,7 @@ function setProgress(e) {
 // Format time to mm:ss
 function formatTime(time) {
     if (isNaN(time)) return '0:00';
-    
+
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -340,7 +386,7 @@ function setupEventListeners() {
     if (playBtn) playBtn.addEventListener('click', togglePlay);
     if (prevBtn) prevBtn.addEventListener('click', prevTrack);
     if (nextBtn) nextBtn.addEventListener('click', nextTrack);
-    
+
     // Audio events (only set up when audio is available)
     if (audio) {
         audio.addEventListener('timeupdate', updateProgress);
@@ -350,7 +396,7 @@ function setupEventListeners() {
                 durationEl.textContent = formatTime(audio.duration);
             }
         });
-        
+
         // Clean error handling
         audio.addEventListener('error', (e) => {
             console.log('Audio error occurred');
@@ -361,7 +407,7 @@ function setupEventListeners() {
                 }
             }
         });
-        
+
         audio.addEventListener('loadstart', () => {
             // Reset title when loading real audio starts
             if (trackTitle && audio.src !== SILENT_AUDIO) {
@@ -369,12 +415,12 @@ function setupEventListeners() {
             }
         });
     }
-    
+
     // Progress bar
     if (progressBar) {
         progressBar.addEventListener('click', setProgress);
     }
-    
+
     // Mobile navigation
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
@@ -382,7 +428,7 @@ function setupEventListeners() {
             navToggle.classList.toggle('active');
         });
     }
-    
+
     // Close mobile menu when clicking on links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
@@ -390,7 +436,7 @@ function setupEventListeners() {
             if (navToggle) navToggle.classList.remove('active');
         });
     });
-    
+
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -404,11 +450,11 @@ function setupEventListeners() {
             }
         });
     });
-    
+
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        
+
         if (e.code === 'Space') {
             e.preventDefault();
             togglePlay();
@@ -435,7 +481,7 @@ function scrollToSection(sectionId) {
 function showLoadingAnimation() {
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.3s ease-in-out';
-    
+
     // Quick fade in
     setTimeout(() => {
         document.body.style.opacity = '1';

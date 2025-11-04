@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BrstWorks - Music & Audio</title>
-    <meta name="description" content="BrstWorks">
+    <meta name="description" content="BrstWorks Official Website.">
     <link rel="stylesheet" href="styles.css">
-    <!-- Fonts loaded asynchronously for better performance -->
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -25,6 +41,22 @@
         .fa-youtube::before { content: "\f167"; }
         .fa-instagram::before { content: "\f16d"; }
         .fa-twitter::before { content: "\f099"; }
+
+        /* Small helpers for header logo alignment (quick, safe fallback) */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            display: block;
+        }
+        .brand-text { line-height: 1; }
+        .brand-title { margin: 0; font-size: 1.1rem; }
+        .brand-subtitle { display: block; font-size: 0.8rem; color: #666; }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
@@ -34,8 +66,11 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="nav-brand">
-                    <h1 class="brand-title">BrstWorks</h1>
-                    <span class="brand-subtitle">Music & Audio</span>
+                   
+                    <div class="brand-text">
+                        <h1 class="brand-title">BrstWorks</h1>
+                        <span class="brand-subtitle">Music & Audio</span>
+                    </div>
                 </div>
                 <ul class="nav-menu">
                     <li class="nav-item">
@@ -188,26 +223,24 @@
                 <div class="about-text">
                     <h2 class="section-title">About BrstWorks</h2>
                     <p class="about-description">
-                        BrstWorks is a creative music and audio production studio dedicated to crafting 
-                        unique soundscapes and innovative audio experiences. We blend traditional 
-                        musicality with cutting-edge production techniques to create memorable tracks 
-                        that resonate with listeners worldwide.
+                        BrstWorks is an organization that manages ILWSM, Brst, Frantisek Macak and D0ndrripp,
+                        Basically its just music producers under one shared name for some purposes.
+
                     </p>
                     <p class="about-description">
-                        From electronic beats to ambient soundscapes, our diverse catalog showcases 
-                        the versatility and creativity that defines the BrstWorks sound.
+                        We make Hip-Hop, Rap, Trap, and also Rock, Alt. Rock, but also Techno and Trance/Psy-Trance.
                     </p>
                     <div class="stats">
                         <div class="stat-item">
-                            <span class="stat-number">50+</span>
+                            <span class="stat-number">200+</span>
                             <span class="stat-label">Tracks Released</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">10K+</span>
+                            <span class="stat-number">30K+</span>
                             <span class="stat-label">Listeners</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">5+</span>
+                            <span class="stat-number">2+</span>
                             <span class="stat-label">Years Active</span>
                         </div>
                     </div>
@@ -235,11 +268,11 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <h3>Let's Collaborate</h3>
-                    <p>Interested in working together or have questions about our music? We'd love to hear from you!</p>
+                    <p>Interested in working together or have questions about our music? Email us!</p>
                     <div class="contact-methods">
                         <div class="contact-method">
                             <i class="fas fa-envelope"></i>
-                            <span>BrstWorks@email.cz</span>
+                            <span>BrstOfficial@BrstWorks.eu</span>
                         </div>
                     </div>
                 </div>
@@ -247,7 +280,7 @@
                     <div class="simple-contact">
                         <h4>Get in Touch</h4>
                         <p>Ready to collaborate or have questions? Send us an email!</p>
-                        <a href="mailto:BrstWorks@email.cz?subject=Contact from BrstWorks Website&body=Hi there! I'd like to get in touch about..." class="contact-btn email-btn">
+                        <a href="mailto:BrstOfficial@BrstWorks.eu?subject=Contact from BrstWorks Website&body=Hi there! I'd like to get in touch about..." class="contact-btn email-btn">
                             <i class="fas fa-envelope"></i> Send Email
                         </a>
                     </div>
@@ -262,7 +295,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>BrstWorks</h3>
-                    <p>Creating music that moves you</p>
+                    <p>Creating crazy shit.</p>
                 </div>
                 <div class="footer-links">
                     <a href="#home">Home</a>
@@ -282,6 +315,56 @@
             </div>
         </div>
     </footer>
+
+    <!-- Fallback logic: if local logo.png is missing, replace with inline SVG so a logo is always visible -->
+    <script>
+        (function () {
+            const img = document.getElementById('siteLogo');
+            if (!img) return;
+
+            // try HEAD fetch to verify file exists (works on http/https)
+            const logoPath = img.getAttribute('src') || 'assets/images/logo.png';
+
+            function setSvgFallback() {
+                const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" preserveAspectRatio="xMidYMid meet" role="img" aria-label="BrstWorks logo">
+  <defs>
+    <linearGradient id="bwGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#4ecdc4"/>
+      <stop offset="1" stop-color="#ff6b6b"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bwGrad)"/>
+  <path d="M16 44 L28 20 L36 40 L48 18" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="12" cy="18" r="2.5" fill="#fff"/>
+</svg>`;
+                img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+                img.style.objectFit = 'contain';
+            }
+
+            // If served over file://, fetch HEAD will fail — skip to fallback check
+            if (location.protocol === 'file:') {
+                // rely on naturalWidth to detect missing image after a short delay
+                img.addEventListener('error', setSvgFallback);
+                setTimeout(() => {
+                    if (!img.naturalWidth) setSvgFallback();
+                }, 250);
+                return;
+            }
+
+            // Try HEAD first, fall back to GET on some servers
+            fetch(logoPath, { method: 'HEAD' }).then(res => {
+                if (!res.ok) setSvgFallback();
+            }).catch(() => {
+                // try GET as some hosts don't support HEAD properly
+                fetch(logoPath, { method: 'GET' }).then(res => {
+                    if (!res.ok) setSvgFallback();
+                }).catch(() => {
+                    setSvgFallback();
+                });
+            });
+        })();
+    </script>
 
     <script src="script.js"></script>
 </body>
