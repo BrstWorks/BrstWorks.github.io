@@ -488,6 +488,56 @@ function showLoadingAnimation() {
     }, 100);
 }
 
+// Volume control wiring for #audio
+(function () {
+    const audio = document.getElementById('audio');
+    const slider = document.getElementById('volumeSlider');
+    const muteBtn = document.getElementById('muteBtn');
+    const volumeIcon = document.getElementById('volumeIcon');
+    if (!audio || !slider || !muteBtn) return;
+
+    // Restore saved volume (0..1)
+    const saved = localStorage.getItem('bw_volume');
+    const initialVolume = (saved !== null) ? parseFloat(saved) : 1;
+    audio.volume = isNaN(initialVolume) ? 1 : Math.max(0, Math.min(1, initialVolume));
+    slider.value = audio.volume;
+
+    let previousVolume = audio.volume > 0 ? audio.volume : 0.5;
+
+    function updateIcon(vol) {
+        if (vol === 0) {
+            volumeIcon.className = 'fas fa-volume-mute';
+        } else if (vol < 0.5) {
+            volumeIcon.className = 'fas fa-volume-down';
+        } else {
+            volumeIcon.className = 'fas fa-volume-up';
+        }
+    }
+
+    updateIcon(audio.volume);
+
+    slider.addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        audio.volume = v;
+        if (v > 0) previousVolume = v;
+        updateIcon(v);
+        localStorage.setItem('bw_volume', String(v));
+    });
+
+    muteBtn.addEventListener('click', () => {
+        if (audio.volume === 0) {
+            audio.volume = previousVolume || 0.5;
+            slider.value = audio.volume;
+        } else {
+            previousVolume = audio.volume;
+            audio.volume = 0;
+            slider.value = 0;
+        }
+        updateIcon(audio.volume);
+        localStorage.setItem('bw_volume', String(audio.volume));
+    });
+})();
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     showLoadingAnimation();
