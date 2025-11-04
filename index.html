@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrstWorks - Music & Audio</title>
-    <meta name="description" content="BrstWorks Official Website.">
+    <title>BrstWorks - Hudba a tracky a crazy shit</title>
+    <meta name="description" content="Oficiální web BrstWorks.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta property="og:image" content="assets/images/logo.png">
+    <meta property="og:url" content="https://BrstWorks.eu/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BrstWorks Web">
+    <meta name="copyright" content="© 2025 BrstWorks">
     <link rel="stylesheet" href="styles.css">
     <link rel="apple-touch-icon" sizes="57x57" href="assets/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="assets/images/apple-icon-60x60.png">
@@ -61,49 +68,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Hlavička -->
     <header class="header">
-        <nav class="nav">
-            <div class="nav-container">
-                <div class="nav-brand">
-                   
-                    <div class="brand-text">
-                        <h1 class="brand-title">BrstWorks</h1>
-                        <span class="brand-subtitle">Music & Audio</span>
-                    </div>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-text">
+                    <h1 class="brand-title">BrstWorks</h1>
+                    <span class="brand-subtitle">Hudba a tracky</span>
                 </div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#music" class="nav-link">Music</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">Contact</a>
-                    </li>
-                </ul>
-                <div class="nav-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
+                <a class="lang-switch" href="English/index.html" rel="alternate" hreflang="en" title="English - Open English version">Click for English</a>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#music" class="nav-link">Hudba</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">O BrstWorks</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Kontakt</a>
+                </li>
+            </ul>
+
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <!-- Hlavní sekce -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-title">BrstWorks</h1>
             <p class="hero-subtitle">ILWSM & Brst & F.M.cz & D0ndrrïpp</p>
-            <p class="hero-description">Discover our latest tracks yo</p>
+            <p class="hero-description">Checkni nase nový výtvory</p>
             <button class="cta-button" onclick="scrollToSection('music')">
-                <i class="fas fa-play"></i> Explore Music
-            </button>
+                <i class="fas fa-play"></i> Checknout skladby</button>
         </div>
         <div class="hero-visual">
             <div class="sound-wave">
@@ -116,17 +125,17 @@
         </div>
     </section>
 
-    <!-- Music Player Section -->
+    <!-- Sekce přehrávače -->
     <section id="music" class="music-section">
         <div class="container">
-            <h2 class="section-title">Latest Tracks</h2>
+            <h2 class="section-title">Nejnovější skladby</h2>
             
             <!-- Music Player -->
             <div class="music-player">
                 <div class="player-display">
                     <div class="track-info">
                         <div class="track-cover-container">
-                            <img src="" alt="Track Cover" class="track-cover" id="trackCover" style="display: none;">
+                            <img src="" alt="Obal skladby" class="track-cover" id="trackCover" style="display: none;">
                             <div class="cover-placeholder" style="
                                 width: 80px;
                                 height: 80px;
@@ -141,7 +150,7 @@
                             ">♪</div>
                         </div>
                         <div class="track-details">
-                            <h3 class="track-title" id="trackTitle">Select a track to play</h3>
+                            <h3 class="track-title" id="trackTitle">Vyberte skladbu k přehrání</h3>
                             <p class="track-artist" id="trackArtist">BrstWorks</p>
                         </div>
                     </div>
@@ -169,7 +178,7 @@
 
             <!-- Playlist -->
             <div class="playlist">
-                <h3 class="playlist-title">Playlist</h3>
+                <h3 class="playlist-title">Seznam skladeb</h3>
                 <div class="track-list" id="trackList">
                     <div class="track-item" data-src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav">
                         <div class="track-number">01</div>
@@ -216,31 +225,30 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Sekce O nás -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About BrstWorks</h2>
+                    <h2 class="section-title">O BrstWorks</h2>
                     <p class="about-description">
-                        BrstWorks is an organization that manages ILWSM, Brst, Frantisek Macak and D0ndrripp,
-                        Basically its just music producers under one shared name for some purposes like collabs.   
-                        Based in Czech Republic, Liberec. Creating crazy shit.</p>
+                        BrstWorks je "organizace", která spravuje ILWSM, Brst, František Macák a D0ndrripp.
+                        V podstatě jde o hudební producenty či aliasy pod společným jménem pro účely třeba spolupráce.
+                        Sídlíme v České republice, Liberec.</p>
                     <p class="about-description">
-                        We make Hip-Hop, Rap, Trap, and also Rock, Alt. Rock, but also Techno and Trance/Psy-Trance.
-                    </p>
+                        Děláme hip-hop, rap, trap, ale také rock a alternativní rock, nebo třeba techno a trance/psy-trance. </p>
                     <div class="stats">
                         <div class="stat-item">
                             <span class="stat-number">200+</span>
-                            <span class="stat-label">Tracks Released</span>
+                            <span class="stat-label">Vydané skladby</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">30K+</span>
-                            <span class="stat-label">Listeners</span>
+                            <span class="stat-label">Posluchači</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">2+</span>
-                            <span class="stat-label">Years Active</span>
+                            <span class="stat-label">Roky činnosti</span>
                         </div>
                     </div>
                 </div>
@@ -260,14 +268,14 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Sekce Kontakt -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">Kontakt</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Collaborate</h3>
-                    <p>Interested in working together or have questions about our music? Email us!</p>
+                    <h3>Pojďme spolupracovat</h3>
+                    <p>Máte zájem o spolupráci nebo dotazy k naší hudbě? (Nebo pokud jste našli bugy/něco špatně s webovou stránkou nebo máte nějaké návrhy na změny) Napište nám e-mail!</p>
                     <div class="contact-methods">
                         <div class="contact-method">
                             <i class="fas fa-envelope"></i>
@@ -277,10 +285,10 @@
                 </div>
                 <div class="contact-form">
                     <div class="simple-contact">
-                        <h4>Get in Touch</h4>
-                        <p>Ready to collaborate or have questions? Send us an email!</p>
-                        <a href="mailto:BrstOfficial@BrstWorks.eu?subject=Contact from BrstWorks Website&body=Hi there! I'd like to get in touch about..." class="contact-btn email-btn">
-                            <i class="fas fa-envelope"></i> Send Email
+                        <h4>Kontakt</h4>
+                        <p>Připravení ke spolupráci nebo máte otázky? Pošlete nám e-mail!</p>
+                        <a href="mailto:BrstOfficial@BrstWorks.eu?subject=Kontakt z webu BrstWorks&body=Ahoj! píšu ohledně..." class="contact-btn email-btn">
+                            <i class="fas fa-envelope"></i> Odeslat e-mail
                         </a>
                     </div>
                 </div>
@@ -288,31 +296,31 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Patička -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>BrstWorks</h3>
-                    <p>Creating crazy shit.</p>
+                    <p>Děláme crazy shitt.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#music">Music</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#home">Domů</a>
+                    <a href="#music">Hudba</a>
+                    <a href="#about">O nás</a>
+                    <a href="#contact">Kontakt</a>
                 </div>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/brstworks.eu" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BrstWorks. All rights reserved.</p>
+                <p>&copy; 2025 BrstWorks. Všechna práva vyhrazena.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Fallback logic: if local logo.png is missing, replace with inline SVG so a logo is always visible -->
+    <!-- Fallback logika: pokud chybí lokální logo.png, nahraď inline SVG tak, aby bylo logo vždy viditelné -->
     <script>
         (function () {
             const img = document.getElementById('siteLogo');
@@ -323,7 +331,7 @@
 
             function setSvgFallback() {
                 const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" preserveAspectRatio="xMidYMid meet" role="img" aria-label="BrstWorks logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" preserveAspectRatio="xMidYMid meet" role="img" aria-label="logo BrstWorks">
   <defs>
     <linearGradient id="bwGrad" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#4ecdc4"/>
