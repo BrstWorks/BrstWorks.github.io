@@ -3,7 +3,7 @@ let audio, playBtn, prevBtn, nextBtn, progress, progressBar;
 let currentTimeEl, durationEl, trackTitle, trackArtist, trackCover, trackList;
 let navToggle, navMenu, contactForm;
 
-// Playlist data with local asset paths and per-track artist + cover
+// vsechno je to ai no tak co jako ale ta hudba je real
 const playlist = [
     {
         title: 'BEEN THERE, DONE THAT',
