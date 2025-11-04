@@ -13,25 +13,25 @@ const playlist = [
         src: 'assets/audio/danrapp.mp3'
     },
     {
-        title: 'PLACEHOLDER',
-        artist: 'BrstWorks',
-        duration: '4:12',
-        cover: 'assets/images/midnight-vibes.jpg',
-        src: 'assets/audio/midnight-vibes.mp3'
+        title: 'Detached from Reality',
+        artist: 'ILWSM',
+        duration: '3:24',
+        cover: 'assets/images/ilwsm-detached.jpg',
+        src: 'assets/audio/ilwsm-detached.wav'
+    },
+    {
+        title: 'Prototype Beat (instrumental)',
+        artist: 'BrstOfficial',
+        duration: '3:39',
+        cover: 'assets/images/null.png',
+        src: 'assets/audio/prototypebrst.mp3'
     },
     {
         title: 'PLACEHOLDER',
         artist: 'BrstWorks',
-        duration: '2:58',
-        cover: 'assets/images/urban-pulse.jpg',
-        src: 'assets/audio/urban-pulse.mp3'
-    },
-    {
-        title: 'PLACEHOLDER',
-        artist: 'BrstWorks',
-        duration: '5:23',
-        cover: 'assets/images/chill-waves.jpg',
-        src: 'assets/audio/chill-waves.mp3'
+        duration: '6:66',
+        cover: 'assets/images/null.png',
+        src: 'assets/audio/null.mp3'
     }
 ];
 
