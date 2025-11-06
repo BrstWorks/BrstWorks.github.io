@@ -27,11 +27,11 @@ const playlist = [
         src: 'assets/audio/prototypebrst.mp3'
     },
     {
-        title: 'PLACEHOLDER',
-        artist: 'BrstWorks',
-        duration: '6:66',
+        title: 'Prototype beat 2 (instrumental)',
+        artist: 'BrstOfficial',
+        duration: '3:07',
         cover: 'assets/images/null.png',
-        src: 'assets/audio/null.mp3'
+        src: 'assets/audio/prototypebeatbrst2.mp3'
     }
 ];
 
