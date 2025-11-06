@@ -13,11 +13,11 @@ const playlist = [
         src: 'assets/audio/danrapp.mp3'
     },
     {
-        title: 'Detached from Reality',
-        artist: 'ILWSM',
-        duration: '3:24',
-        cover: 'assets/images/ilwsm-detached.jpg',
-        src: 'assets/audio/ilwsm-detached.wav'
+        title: 'Prototype Beat 3(instrumental)',
+        artist: 'BrstOfficial',
+        duration: '4:14',
+        cover: 'assets/images/null.png',
+        src: 'assets/audio/prototypebrst3.mp3'
     },
     {
         title: 'Prototype Beat (instrumental)',
@@ -98,17 +98,28 @@ function buildTrackListFromPlaylist() {
 
         // Attach click handlers
         const playBtnLocal = item.querySelector('.play-track-btn');
+
+        // Row click: toggle play/pause if clicking same track, otherwise load+play new track
         item.addEventListener('click', () => {
-            currentTrackIndex = idx;
-            loadTrack(idx);
-            playTrack();
-        });
-        if (playBtnLocal) {
-            playBtnLocal.addEventListener('click', (e) => {
-                e.stopPropagation();
+            if (currentTrackIndex === idx) {
+                togglePlay();
+            } else {
                 currentTrackIndex = idx;
                 loadTrack(idx);
                 playTrack();
+            }
+        });
+
+        if (playBtnLocal) {
+            playBtnLocal.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentTrackIndex === idx) {
+                    togglePlay();
+                } else {
+                    currentTrackIndex = idx;
+                    loadTrack(idx);
+                    playTrack();
+                }
             });
         }
 
@@ -212,9 +223,12 @@ function loadTrack(index) {
     const track = playlist[index];
 
     if (audio) {
-        // Don't load audio URL immediately, wait for play attempt
-        audio.removeAttribute('src');
-        audio.load(); // Reset audio element
+        // Reset audio element so it will be loaded when play is requested
+        // But avoid unnecessary reset if the same source is already set
+        if (!audio.src || audio.src.indexOf(track.src) === -1) {
+            audio.removeAttribute('src');
+            audio.load(); // Reset audio element
+        }
     }
 
     updateTrackDisplay(index);
@@ -234,14 +248,13 @@ async function checkAudioExists(url) {
 function updateActiveTrack(index) {
     const trackItems = document.querySelectorAll('.track-item');
     trackItems.forEach((item, i) => {
+        const btnIcon = item.querySelector('.play-track-btn i');
         if (i === index) {
             item.classList.add('active');
-            const btn = item.querySelector('.play-track-btn i');
-            if (btn) btn.className = 'fas fa-pause';
+            if (btnIcon) btnIcon.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
         } else {
             item.classList.remove('active');
-            const btn = item.querySelector('.play-track-btn i');
-            if (btn) btn.className = 'fas fa-play';
+            if (btnIcon) btnIcon.className = 'fas fa-play';
         }
     });
 }
@@ -261,7 +274,7 @@ function playTrack() {
     const track = playlist[currentTrackIndex];
 
     // First, try to load the actual audio file
-    if (!audio.src || audio.src === window.location.href || audio.src === SILENT_AUDIO) {
+    if (!audio.src || audio.src === window.location.href || audio.src === SILENT_AUDIO || audio.src.indexOf(track.src) === -1) {
         // Check if the audio file exists
         checkAudioExists(track.src).then(exists => {
             if (exists) {
@@ -298,12 +311,8 @@ function attemptPlay() {
             isPlaying = true;
             if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
 
-            // Add playing animation to current track
-            const activeTrackItem = document.querySelector('.track-item.active');
-            if (activeTrackItem) {
-                const playButton = activeTrackItem.querySelector('.play-track-btn');
-                if (playButton) playButton.innerHTML = '<i class="fas fa-pause"></i>';
-            }
+            // Update playlist UI
+            updateActiveTrack(currentTrackIndex);
         }).catch(error => {
             console.log('Play failed:', error);
             if (trackTitle) {
@@ -319,12 +328,8 @@ function pauseTrack() {
         isPlaying = false;
         if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
 
-        // Remove playing animation from current track
-        const activeTrackItem = document.querySelector('.track-item.active');
-        if (activeTrackItem) {
-            const playButton = activeTrackItem.querySelector('.play-track-btn');
-            if (playButton) playButton.innerHTML = '<i class="fas fa-play"></i>';
-        }
+        // Update playlist UI
+        updateActiveTrack(currentTrackIndex);
     }
 }
 
@@ -395,6 +400,18 @@ function setupEventListeners() {
             if (durationEl && audio.duration) {
                 durationEl.textContent = formatTime(audio.duration);
             }
+        });
+
+        // Sync UI with native play/pause events
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            updateActiveTrack(currentTrackIndex);
+        });
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            updateActiveTrack(currentTrackIndex);
         });
 
         // Clean error handling
