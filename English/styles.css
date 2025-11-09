@@ -1,4 +1,4 @@
-/* Optimized font loading - reduced weight variations */
+﻿/* Optimized font loading - reduced weight variations */
 * {
     margin: 0;
     padding: 0;
@@ -412,6 +412,33 @@ body {
     font-weight: 500;
 }
 
+/* Make track title smaller and improve line-height for wrapping */
+.track-list .track-name,
+.track-name {
+  font-size: 0.95rem;    /* smaller title size */
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Override: make track title smaller (forceful, safe) */
+.track-list .track-name,
+.track-name {
+  font-size: 0.76rem !important;
+  line-height: 1.15 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .track-list .track-name,
+  .track-name {
+    font-size: 0.78rem !important;
+    line-height: 1.12 !important;
+  }
+}
+
 .track-duration {
     color: #888;
     font-size: 0.9rem;
@@ -426,6 +453,13 @@ body {
     padding: 0.5rem;
     border-radius: 50%;
     transition: all 0.3s ease;
+}
+
+.track-thumb-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
 }
 
 .track-item:hover .play-track-btn {
@@ -852,6 +886,61 @@ body {
 
     .sound-visualization {
         height: 100px;
+    }
+
+    /* taller rows so wrapped text has room */
+    .track-item {
+        min-height: 84px;
+        padding: 0.9rem 1rem;
+        align-items: flex-start;
+        box-sizing: border-box;
+    }
+
+    /* keep number/thumb fixed */
+    .track-number,
+    .track-thumb-container {
+        flex: 0 0 40px;
+        width: 40px;
+        margin-top: 6px;
+    }
+
+    /* stack title above artist and allow wrapping */
+    .track-info-small {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0; /* critical for wrapping */
+    }
+
+    .track-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        margin: 0;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .track-artist-small {
+        margin: 0;
+        color: #bdbdbd;
+        font-size: 0.9rem;
+    }
+
+    /* keep duration visually on the right of the info column */
+    .track-duration {
+        align-self: flex-end;
+        color: #888;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    /* keep play button at the row end */
+    .play-track-btn {
+        flex: 0 0 auto;
+        margin-left: 12px;
+        align-self: center;
     }
 }
 
