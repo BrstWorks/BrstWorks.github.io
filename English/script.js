@@ -1,4 +1,4 @@
-// DOM Elements - only get what we need initially
+﻿// DOM Elements - only get what we need initially
 let audio, playBtn, prevBtn, nextBtn, progress, progressBar;
 let currentTimeEl, durationEl, trackTitle, trackArtist, trackCover, trackList;
 let navToggle, navMenu, contactForm;
@@ -200,7 +200,7 @@ function updateTrackDisplay(index) {
                 font-size: 1.2rem;
                 z-index: 2;
             `;
-            placeholder.textContent = initials || '��';
+            placeholder.textContent = initials || '♪';
             placeholder.style.display = 'flex';
         };
 
@@ -569,3 +569,29 @@ window.BrstWorks = {
     prevTrack,
     scrollToSection
 };
+
+// Copy-to-clipboard for donation IBAN (append to script.js)
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if (!btn) return;
+  const targetId = btn.getAttribute('data-copy-target');
+  const el = document.getElementById(targetId);
+  if (!el) return;
+  const text = el.textContent.trim();
+  if (!navigator.clipboard) {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(ta);
+  } else {
+    navigator.clipboard.writeText(text).catch(()=>{});
+  }
+
+  const original = btn.textContent;
+  btn.textContent = 'Zkopírováno';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1500);
+});

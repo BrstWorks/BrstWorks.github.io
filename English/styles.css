@@ -1003,3 +1003,21 @@ body {
         margin-left: 0;
     }
 }
+
+/* Donation/bank styling (append to styles.css) */
+.contact-method .bank-info { display: flex; flex-direction: column; }
+.contact-method .bank-account { font-weight: 600; color: #fff; }
+.contact-method .copy-btn {
+    background: rgba(78,205,196,0.12);
+    border: 1px solid rgba(78,205,196,0.18);
+    color: #4ecdc4;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.contact-method .copy-btn:hover { background: rgba(78,205,196,0.18); }
+@media (max-width:560px){
+    .contact-method .bank-account { display:block; word-break:break-all; }
+    .contact-method .copy-btn { padding:6px 8px; font-size:0.9rem; }
+}
