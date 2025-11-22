@@ -20,11 +20,11 @@ const playlist = [
         src: 'assets/audio/prototypebrst3.mp3'
     },
     {
-        title: 'Prototype Beat (instrumental)',
-        artist: 'BrstOfficial',
-        duration: '3:39',
-        cover: 'assets/images/null.png',
-        src: 'assets/audio/prototypebrst.mp3'
+        title: 'Tekkenn',
+        artist: 'ILWSM',
+        duration: '3:46',
+        cover: 'assets/images/Tekkenn.jpg',
+        src: 'assets/audio/Tekkenn.wav'
     },
     {
         title: 'Prototype beat 2 (instrumental)',
