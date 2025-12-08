@@ -980,9 +980,9 @@ body {
     gap: 8px;
     padding: 6px 10px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.06);
-    background: transparent;
-    color: inherit;
+    border: 1px solid rgba(255,255,255,0.15); /* slightly stronger border */
+    background: #8B0000; /* dark red background */
+    color: #fff; /* white text for contrast */
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
@@ -991,6 +991,12 @@ body {
     user-select: none;
     transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
 }
+.lang-switch:hover {
+    background: #B22222; /* lighter red on hover for visibility */
+    border-color: #ff4444; /* brighter border on hover */
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.6); /* subtle glow */
+}
+
 
 /* Mobile: stack brand and language switch */
 @media (max-width: 768px) {
