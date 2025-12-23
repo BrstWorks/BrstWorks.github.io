@@ -20,11 +20,11 @@ const playlist = [
         src: 'assets/audio/takco.mp3'
     },
     {
-        title: 'Tekkenn',
-        artist: 'ILWSM',
-        duration: '3:46',
-        cover: 'assets/images/Tekkenn.jpg',
-        src: 'assets/audio/Tekkenn.wav'
+        title: 'DEMO BEAT',
+        artist: 'BrstOfficial',
+        duration: '4:30',
+        cover: 'assets/images/obrazek.png',
+        src: 'assets/audio/Project_33.mp3'
     },
     {
         title: 'Space',
